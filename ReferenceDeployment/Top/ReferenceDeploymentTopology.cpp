@@ -5,6 +5,7 @@
 // ======================================================================
 // Provides access to autocoded functions
 #include <ReferenceDeployment/Top/ReferenceDeploymentTopologyAc.hpp>
+#include <ComSerial.hpp>
 // Note: Uncomment when using Svc:TlmPacketizer
 // #include <ReferenceDeployment/Top/ReferenceDeploymentPacketsAc.hpp>
 #include <Arduino/config/FprimeArduino.hpp>
@@ -44,8 +45,8 @@ void configureTopology() {
     // Rate groups require context arrays.
     rateGroup1.configure(rateGroup1Context, FW_NUM_ARRAY_ELEMENTS(rateGroup1Context));
 
-    // Bind the byte stream driver to the Nucleo virtual serial port used by the GDS.
-    comDriver.configure(&Serial);
+    // Bind the byte stream driver to the board UART used by the GDS.
+    comDriver.configure(&ReferenceDeployment::ComSerial);
 }
 
 // Public functions for use in main program are namespaced with deployment name ReferenceDeployment

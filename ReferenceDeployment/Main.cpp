@@ -8,7 +8,7 @@
 // Used to access topology functions
 #include <ReferenceDeployment/Top/ReferenceDeploymentTopologyAc.hpp>
 #include <ReferenceDeployment/Top/ReferenceDeploymentTopology.hpp>
-
+#include <ComSerial.hpp>
 #include <FreeRTOS.h>
 #include <task.h>
 
@@ -30,15 +30,15 @@ void RateLoop(void *params) {
 void setup() {
     // Initialize OSAL
     Os::init();
-
+    constexpr PlatformIntType UART_BAUD = 115200;
     // Setup Serial and Logging
-    Serial.begin(115200);
-    static_cast<Os::Arduino::StreamConsoleHandle*>(Os::Console::getSingleton().getHandle())->setStreamHandler(Serial);
+    ReferenceDeployment::ComSerial.begin(UART_BAUD);
+    static_cast<Os::Arduino::StreamConsoleHandle*>(Os::Console::getSingleton().getHandle())->setStreamHandler(ReferenceDeployment::ComSerial);
 
     // Object for communicating state to the reference topology
     ReferenceDeployment::TopologyState inputs;
-    inputs.uartNumber = 0;
-    inputs.uartBaud = 115200;
+    inputs.uartNumber = 1;
+    inputs.uartBaud = UART_BAUD;
 
     // Setup topology
     ReferenceDeployment::setupTopology(inputs);
