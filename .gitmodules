@@ -4,4 +4,4 @@
 [submodule "lib/fprime-nucleo_h723zg-freertos"]
 	path = lib/fprime-nucleo_h723zg-freertos
 	url = https://github.com/CubeSTEP/fprime-nucleo_h723zg-freertos.git
-	branch = STM32H7-4.2
+	branch = generic-toolchain

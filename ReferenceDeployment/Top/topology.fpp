@@ -22,6 +22,7 @@ module ReferenceDeployment {
 
     instance cmdDisp
     instance eventManager
+    instance fatalHandler
     instance rateDriver
     instance rateGroup1
     instance rateGroupDriver
@@ -57,6 +58,10 @@ module ReferenceDeployment {
       rateGroup1.RateGroupMemberOut[0] -> tlmSend.Run
       rateGroup1.RateGroupMemberOut[1] -> comDriver.schedIn
       rateGroup1.RateGroupMemberOut[2] -> ComFprime.comQueue.run
+    }
+
+    connections FaultHandler {
+      eventManager.FatalAnnounce -> fatalHandler.FatalReceive
     }
     
     connections Communications {
